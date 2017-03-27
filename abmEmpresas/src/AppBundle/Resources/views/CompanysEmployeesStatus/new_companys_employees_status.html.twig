@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:CompanysEmployeesStatus:newCompanysEmployeesStatus{% endblock %}
+
+{% block body %}
+	{% if messageTrue is defined %}
+		<div class="alert alert-success" role="alert">
+  			<strong>{{ messageTrue }}</strong>
+		</div>		
+	{% endif %}
+	{% if messageFalse is defined %}
+		<div class="alert alert-danger" role="alert">
+  			<strong>{{ messageFalse }}</strong>
+		</div>		
+	{% endif %}
+<div class="container">
+	{{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+</div>
+{% endblock %}

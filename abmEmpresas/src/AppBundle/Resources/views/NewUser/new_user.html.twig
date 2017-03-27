@@ -1,0 +1,65 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:NewUser:newUser{% endblock %}
+
+{% block body %}
+	{% if messageTrue is defined %}
+		<div class="alert alert-success" role="alert">
+  			<strong>{{ messageTrue }}</strong>
+		</div>		
+	{% endif %}
+	{% if messageFalse is defined %}
+		<div class="alert alert-danger" role="alert">
+  			<strong>{{ messageFalse }}</strong>
+		</div>		
+	{% endif %}
+	{#Ricardo Burczynski: Al hacer el submit va a llamar a la funcion qu encripta la clave #}
+<div class="container">
+	{{ form_start(form, {'attr': {'onsubmit': 'myFunction()'}}) }}
+		<div class="form-group row">
+			{{ form_label(form.userUser, 'Usuario' ,{'label_attr': {'id': 'labelUsuario', 'class' : "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+			{{ form_widget(form.userUser, { 'id': 'Usuario', 'class': "form-control"}) }}</br>
+			</div>
+        </div>
+
+        <div class="form-group row">
+			{{ form_label(form.userPass, 'PassWord' ,{'label_attr': {'id': 'labelPassWord', 'for': 'PassWord', 'class' : "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+			{{ form_widget(form.userPass, { 'id': 'PassWord', 'class': "form-control"}) }}</br>
+			</div>
+        </div>
+
+        <div class="form-group row">
+			{{ form_label(form.userRole, 'Rol' ,{'label_attr': {'id': 'labelRol', 'class' : "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+			{{ form_widget(form.userRole, { 'id': 'Rol', 'class': "form-control"}) }}</br>
+			</div>
+        </div>
+		
+		<div class="form-group row">
+			{{ form_label(form.userPermission, 'Permiso' ,{'label_attr': {'id': 'labelPermiso', 'class' : "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+			{{ form_widget(form.userPermission, { 'id': 'Permiso', 'class': "form-control"}) }}</br>
+			</div>
+        </div>
+		<div class="form-group row">
+			{{ form_row(form.save, {'label': 'Registrar', 'class' : "col-sm-2 col-form-label"}) }}
+			<div class="col-sm-10">
+			{{ form_widget(form.save, { 'id': 'Registrar', 'class': "form-control" }) }}</br>
+			</div>
+        </div>
+
+	{{ form_end(form) }}
+</div>
+    {% block javascripts %}	    	
+	    	<script>
+
+	    		function myFunction(){
+	    			var password = document.getElementById('PassWord').value;
+	    			var hex_md5_password = hex_md5(password);
+	    			document.getElementById("PassWord").value = hex_md5_password;
+	    		}
+	    	</script>
+    {% endblock %}
+{% endblock %}

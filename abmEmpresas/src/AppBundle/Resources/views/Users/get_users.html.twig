@@ -1,0 +1,44 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Users:getUsers{% endblock %}
+
+{% block body %}
+	{# Ricardo Burczynski: Si el login fue incorrecto se muestra el mensaje #}	
+	{% if messageFalse is defined %}
+		<div class="alert alert-danger" role="alert">
+  			<strong>{{ messageFalse }}</strong>
+		</div>
+	{% endif %}
+
+		<div class="btn-group" role="group" aria-label="...">
+			{% if app.session.get('permisson') == 3 %}
+		  		<a type="button" class="btn btn-default" href="/newUser">Agregar Usuario</a>
+		  	{% endif %}
+		</div>
+			<table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Usuario</th>
+			        <th>Estatus</th>
+			        <th>Rol</th>
+			        <th>Permisos</th>
+			        {% if app.session.get('permisson') == 3 %}
+			        	<th>Acciones</th>
+			        {% endif %}
+			      </tr>
+			    </thead>
+			    <tbody>
+			    	{% for user in users %}
+			    		<tr>
+							<td>{{ user.getUserUser() }}</td>
+							<td>{{ user.getUserStatus().getUserStatusName() }}</td>
+							<td>{{ user.getUserRole().getUserRoleName() }}</td>
+							<td>{{ user.getUserPermission().getUserPermissionName() }}</td>
+							{% if app.session.get('permisson') == 3 %}
+								<td><a type="button" class="btn btn-default" href="/userChange/{{ user.getUserId() }}">Modificar</a></td>
+							{% endif %}
+						</tr>
+					{% endfor %}      
+			    </tbody>
+  			</table>
+{% endblock %}

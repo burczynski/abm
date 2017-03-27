@@ -1,0 +1,46 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Employees:getEmployees{% endblock %}
+
+{% block body %}
+	{# Ricardo Burczynski: Si el login fue incorrecto se muestra el mensaje #}	
+	{% if messageFalse is defined %}
+		<div class="alert alert-danger" role="alert">
+  			<strong>{{ messageFalse }}</strong>
+		</div>
+	{% endif %}
+
+		<div class="btn-group" role="group" aria-label="...">
+			{% if app.session.get('permisson') == 3 %}
+		  		<a type="button" class="btn btn-default" href="/newCompanysemployee">Agregar Empleado</a>
+		  	{% endif %}
+		</div>
+			<table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Nombre</th>
+			        <th>Apellido</th>
+			        <th>Dni</th>
+			        <th>Estatus</th>
+			        <th>Empresa</th>
+			        {% if app.session.get('permisson') == 3 %}
+			        	<th>Acciones</th>
+			        {% endif %}
+			      </tr>
+			    </thead>
+			    <tbody>
+			    	{% for companyEmployee in companysEmployees %}
+			    		<tr>
+							<td>{{ companyEmployee.getCompanyEmployeeName() }}</td>
+							<td>{{ companyEmployee.getCompanyEmployeeLastname() }}</td>
+							<td>{{ companyEmployee.getCompanyEmployeeDni() }}</td>
+							<td>{{ companyEmployee.getCompanyEmployyeStatus().getCompanyEmployeeStatusName() }}</td>
+							<td>{{ companyEmployee.getCompany().getCompanyName()}}</td>
+							{% if app.session.get('permisson') == 3 %}
+								<td><a type="button" class="btn btn-default" href="/employeeChanges/{{ companyEmployee.getCompanyEmployeeId() }}">Modificar</a></td>
+							{% endif %}
+						</tr>
+					{% endfor %}      
+			    </tbody>
+  			</table>
+{% endblock %}

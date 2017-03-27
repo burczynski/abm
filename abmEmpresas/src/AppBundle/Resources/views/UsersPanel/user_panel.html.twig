@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{# Ricardo Burczynski: Si el login fue incorrecto se muestra el mensaje #}	
+	{% if messageFalse is defined %}
+		<div class="alert alert-danger" role="alert">
+  			<strong>{{ messageFalse }}</strong>
+		</div>
+	{% endif %}
+
+		<div class="btn-group" role="group" aria-label="...">
+			{% if app.session.get('permisson') == 3 %}
+		  		<a type="button" class="btn btn-default" href="/newCompany">Agregar Empresa</a>
+		  	{% endif %}
+		</div>
+
+
+
+			<table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>Nombre</th>
+			        <th>Cuit</th>
+			        <th>empleados</th>
+			        <th>Estatus</th>
+			        {% if app.session.get('permisson') == 3 %}
+			        	<th>Acciones</th>
+			        {% endif %}
+			      </tr>
+			    </thead>
+			    <tbody>
+			    	{% for company in companys %}
+			    		<tr>
+							<td>{{ company.getCompanyName() }}</td>
+							<td>{{ company.getCompanyCuitNumber() }}</td>
+							<td>{{ company.getCompanyTotalEmployees() }}</td>
+							<td>{{ company.companyStatus.getCompanyStatusName() }}</td>
+							{% if app.session.get('permisson') == 3 %}
+								<td><a type="button" class="btn btn-default" href="/companyChanges/{{ company.getCompanyId() }}">Modificar</a></td>
+							{% endif %}
+						</tr>
+					{% endfor %}      
+			    </tbody>
+  			</table>
+    {% block javascripts %}	    	
+	    	<script>
+	    	
+	    	</script>
+    {% endblock %}
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    
+</style>
+{% endblock %}

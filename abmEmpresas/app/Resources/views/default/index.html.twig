@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{# Ricardo Burczynski: Si el login fue incorrecto se muestra el mensaje #}	
+	{% if messageFalse is defined %}
+		<div class="alert alert-danger" role="alert">
+  			<strong>{{ messageFalse }}</strong>
+		</div>		
+	{% endif %}
+	{# Ricardo Burczynski: Al hacer el submit va a llamar a la funcion qu encripta la clave #}
+<div class="container">
+	{{ form_start(form, {'attr': {'onsubmit': 'md5Encrypt()'}}) }}
+		<div class="form-group row">
+			{{ form_label(form.userUser, 'Usuario' ,{'label_attr': {'id': 'labelUsuario', 'class' : "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+				{{ form_widget(form.userUser, { 'id': 'Usuario', 'class': "form-control"}) }}</br>
+			</div>
+        </div>
+
+        <div class="form-group row">
+			{{ form_label(form.userPass, 'PassWord' ,{'label_attr': {'id': 'labelPassWord', 'for': 'PassWord', 'class' : "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+				{{ form_widget(form.userPass, { 'id': 'PassWord', 'class': "form-control"}) }}</br>
+			</div>
+        </div>
+
+        <div class="form-group row">
+			{{ form_row(form.save, {'label': 'Ingresar', 'class' : "col-sm-2 col-form-label"}) }}
+			<div class="col-sm-10">
+				{{ form_widget(form.save, { 'id': 'Ingresar' , 'class': "form-control"}) }}</br>
+			</div>
+        </div>
+
+	{{ form_end(form) }}
+</div>	
+    {% block javascripts %}	    	
+	    	<script>
+	    	/**
+	    	 * Ricardo Burczynski: Esta Funcion toma el password ingresado y lo emcripta a md5
+	    	 */
+	    		function md5Encrypt(){
+	    			var password = document.getElementById('PassWord').value;
+	    			var hex_md5_password = hex_md5(password);
+	    			document.getElementById("PassWord").value = hex_md5_password;
+	    		}
+	    	</script>
+    {% endblock %}
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    
+</style>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:CompanyChanges:companyChange{% endblock %}
+
+{% block body %}
+	{% if messageTrue is defined %}
+		<div class="alert alert-success" role="alert">
+  			<strong>{{ messageTrue }}</strong>
+		</div>		
+	{% endif %}
+
+
+
+
+<div class="container">
+  
+	{{ form_start(form) }}
+		<div class="form-group row">      
+		  {{ form_label(form.companyName, 'Nombre de la empresa' ,{'label_attr': {'id': 'labelEmpresa', 'class' : "col-sm-2 col-form-label"}}) }}
+	      <div class="col-sm-10">	    
+		   {{ form_widget(form.companyName, { 'id': 'Empresa', 'class': "form-control"}) }}
+	      </div>
+        </div>
+		
+    
+        <div class="form-group row">
+		  {{ form_label(form.companyCuitNumber, 'Cuit de la empresa' ,{'label_attr': {'id': 'labelCuit', 'for': 'cuit', 'class': "col-sm-2 col-form-label"}}) }}
+		  <div class="col-sm-10">
+		   {{ form_widget(form.companyCuitNumber, { 'id': 'cuit', 'class': "form-control"}) }}
+          </div>
+        </div>
+
+
+
+        <div class="form-group row">
+			{{ form_label(form.companyStatus, 'Estatus' ,{'label_attr': {'id': 'labelCuit', 'for': 'estatus', 'class': "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+				{{ form_widget(form.companyStatus, { 'id': 'estatus', 'class': "form-control"}) }}
+			</div>
+        </div>
+
+        <div class="form-group row">
+			{{ form_label(form.save, 'Estatus' ,{'label_attr': {'id': 'labelCuit', 'for': 'estatus', 'class': "col-sm-2 col-form-label"}}) }}
+			<div class="col-sm-10">
+				{{ form_widget(form.save, { 'id': 'estatus', 'class': "form-control"}) }}
+			</div>
+        </div>
+	
+
+	{{ form_end(form) }}
+
+</div>
+
+
+
+{% endblock %}

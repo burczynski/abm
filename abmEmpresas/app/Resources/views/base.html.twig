@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block head %}{% endblock %}
+        <script src="javascript/Md5-min.js"></script>
+        <script src="javascript/md5-min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('/style/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('/style/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js')}}">
+    </head>
+    <body>
+            {% if app.session.get('user') is defined and app.session.get('user') != null %}
+                {% block nav %}
+                    <ul class="nav nav-tabs">
+                      <li role="presentation" class="active"><a href="/userPanel">Empresas</a></li>
+                      <li role="presentation"><a href="/getEmployees">Empleados</a></li>
+                      <li role="presentation"><a href="/getUsers">Usuarios</a></li>
+                      <li role="presentation"><a href="/logOut">Salir</a></li>
+                    </ul>
+                {% endblock %}
+            {% endif %}
+        {% block body %}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
